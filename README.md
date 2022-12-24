@@ -1,4 +1,4 @@
-# Clustering Analysis
+# Cluster Analysis
 Cluster analysis, or clustering, is a method of grouping data points into clusters based on their similarity. It is a way of dividing data into groups so that data points within the same group, or cluster, are more similar to each other than data points in other groups. The goal of clustering is to identify patterns or structure in data, and it is often used as a way to explore and understand data, or to identify subgroups or patterns within a larger dataset.
 
 There are many different algorithms and approaches to clustering, and the choice of which algorithm to use depends on the characteristics of the data and the goals of the analysis. Some common methods of clustering include k-means clustering, hierarchical clustering, and density-based clustering.
