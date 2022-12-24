@@ -20,3 +20,6 @@ RFM (Recency, Frequency, Monetary) analysis is a marketing technique used to ana
 Cluster analysis, or clustering, is a method of grouping data points into clusters based on their similarity. It is a way of dividing data into groups so that data points within the same group, or cluster, are more similar to each other than data points in other groups. The goal of clustering is to identify patterns or structure in data, and it is often used as a way to explore and understand data, or to identify subgroups or patterns within a larger dataset.
 
 In summary, RFM analysis is a marketing technique used to segment customers based on their purchase behavior, while clustering is a data analysis method used to group data points based on similarity. While both techniques can be used to identify patterns and trends in data, they are used for different purposes and involve different approaches.
+
+![Screenshot 2022-12-24 055322](https://user-images.githubusercontent.com/83352965/209418814-f004954f-dbd6-4d7a-90df-faddae94d508.png)
+
