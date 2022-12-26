@@ -50,10 +50,11 @@ def main():
                                                    "Monetary": ["mean", "median", "count"]}), end="\n\n")
     c_list = rfm["Cluster"].unique().tolist()
     total_turnover = rfm["Monetary"].sum()
+    total_sales = rfm["Frequency"].sum()
     for i in c_list:
-        ratio = len(rfm.loc[rfm["Cluster"]==i]) / len(rfm)
-        exp = rfm.loc[rfm["Cluster"]==i, "Monetary"].sum()
-        print(f"{i} Cluster represent {round(ratio * 100, 2)}% of sales, but {round((exp/total_turnover) * 100, 2)}% of turnover")
+        ratio = rfm.loc[rfm["Cluster"]==i, "Frequency"].sum() / total_sales
+        exp = rfm.loc[rfm["Cluster"]==i, "Monetary"].sum() / total_turnover
+        print(f" Cluster {i} represent {round(ratio * 100, 2)}% of sales, but {round((exp) * 100, 2)}% of turnover")
     analysis_report(rfm)
 
 
