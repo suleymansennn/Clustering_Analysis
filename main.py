@@ -47,7 +47,13 @@ def main():
 
     print(rfm.groupby(["Cluster", "Segment"]).agg({"Recency": ["mean", "median", "count"],
                                                    "Frequency": ["mean", "median", "count"],
-                                                   "Monetary": ["mean", "median", "count"]}))
+                                                   "Monetary": ["mean", "median", "count"]}), end="\n\n")
+    c_list = rfm["Cluster"].unique().tolist()
+    total_turnover = rfm["Monetary"].sum()
+    for i in c_list:
+        ratio = len(rfm.loc[rfm["Cluster"]==i]) / len(rfm)
+        exp = rfm.loc[rfm["Cluster"]==i, "Monetary"].sum()
+        print(f"{i} Cluster represent {round(ratio * 100, 2)}% of sales, but {round((exp/total_turnover) * 100, 2)}% of turnover")
     analysis_report(rfm)
 
 
