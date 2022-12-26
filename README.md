@@ -23,3 +23,5 @@ In summary, RFM analysis is a marketing technique used to segment customers base
 
 ![Screenshot 2022-12-24 055322](https://user-images.githubusercontent.com/83352965/209418814-f004954f-dbd6-4d7a-90df-faddae94d508.png)
 
+![Screenshot 2022-12-26 173800](https://user-images.githubusercontent.com/83352965/209559603-8c023c81-658c-4e42-9492-e5eccaa4c8e3.png)
+
