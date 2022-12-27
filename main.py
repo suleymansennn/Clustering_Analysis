@@ -8,22 +8,28 @@ from sklearn.preprocessing import MinMaxScaler
 from yellowbrick.cluster import KElbowVisualizer
 
 
-def kmeans(dataframe):
+def kmeans(dataframe, manuel=False):
     scaler = MinMaxScaler()
     kmeans = KMeans()
     df = pd.DataFrame(scaler.fit_transform(dataframe[["Recency", "Frequency", "Monetary"]]),
                       columns=["Recency", "Frequency", "Monetary"])
-    plot_kmeans(df)
-    elbow = KElbowVisualizer(kmeans, k=(2, 20))
-    elbow.fit(df)
-    elbow.show()
-    opt_kmeans = KMeans(n_clusters=elbow.elbow_value_).fit(df)
-    df["cluster"] = opt_kmeans.labels_
-    print(f"{df['cluster'].nunique()} Clusters Selected")
-    return df["cluster"]
+    if manuel:
+        plot_kmeans(df)
+        k_cluster = int(input("Enter K Cluster:"))
+        opt_kmeans = KMeans(n_clusters=k_cluster).fit(df)
+        df["cluster"] = opt_kmeans.labels_
+        return df["cluster"]
+    else:
+        elbow = KElbowVisualizer(kmeans, k=(2, 20))
+        elbow.fit(df)
+        elbow.show()
+        opt_kmeans = KMeans(n_clusters=elbow.elbow_value_).fit(df)
+        df["cluster"] = opt_kmeans.labels_
+        print(f"{df['cluster'].nunique()} Clusters Selected")
+        return df["cluster"]
 
 
-def main():
+def main(manuel=False):
     print("RFM Analysis Started...")
     start_time = time.perf_counter()
     df = preprocess("flo_data_20k.csv")
@@ -36,8 +42,10 @@ def main():
 
     print("Clustering Analysis Started...")
     start_time = time.perf_counter()
-
-    cluster = kmeans(rfm)
+    if manuel:
+        cluster = kmeans(rfm, True)
+    else:
+        cluster = kmeans(rfm, False)
 
     end_time = time.perf_counter()
     elapsed_time = end_time - start_time
@@ -48,16 +56,9 @@ def main():
     print(rfm.groupby(["Cluster", "Segment"]).agg({"Recency": ["mean", "median", "count"],
                                                    "Frequency": ["mean", "median", "count"],
                                                    "Monetary": ["mean", "median", "count"]}), end="\n\n")
-    c_list = rfm["Cluster"].unique().tolist()
-    total_turnover = rfm["Monetary"].sum()
-    total_sales = rfm["Frequency"].sum()
-    for i in c_list:
-        ratio = rfm.loc[rfm["Cluster"]==i, "Frequency"].sum() / total_sales
-        exp = rfm.loc[rfm["Cluster"]==i, "Monetary"].sum() / total_turnover
-        print(f" Cluster {i} represent {round(ratio * 100, 2)}% of sales, but {round((exp) * 100, 2)}% of turnover")
+
     analysis_report(rfm)
 
 
 if __name__ == "__main__":
-    main()
-
+    main(True)

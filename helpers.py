@@ -103,6 +103,7 @@ def plot_kmeans(data):
     plt.xlabel("SSE/SSR/SSD vs. Different K Values")
     plt.title("Elbow Method for Optimum Number of Clusters")
     # plt.savefig("optimum_cluster")
+    plt.show(block=True)
 
 
 def analysis_report(dataframe):
@@ -118,3 +119,18 @@ def analysis_report(dataframe):
 
         plt.tight_layout()
         # plt.savefig(str(i[0])+"_"+str(i[1]))
+        plt.show(block=True)
+    c_list = dataframe["Cluster"].unique().tolist()
+    total_turnover = dataframe["Monetary"].sum()
+    total_sales = dataframe["Frequency"].sum()
+    for i in c_list:
+        ratio = dataframe.loc[dataframe["Cluster"] == i, "Frequency"].sum() / total_sales
+        exp = dataframe.loc[dataframe["Cluster"] == i, "Monetary"].sum() / total_turnover
+        print(f" Cluster {i} represent {round(ratio * 100, 2)}% of sales, and {round((exp) * 100, 2)}% of turnover")
+
+    c_list2 = dataframe["Segment"].unique().tolist()
+    for i in c_list2:
+        ratio = dataframe.loc[dataframe["Segment"] == i, "Frequency"].sum() / total_sales
+        exp = dataframe.loc[dataframe["Segment"] == i, "Monetary"].sum() / total_turnover
+        print(
+            f" {i} Segment represent {round(ratio * 100, 2)}% of sales, and {round((exp) * 100, 2)}% of turnover")
